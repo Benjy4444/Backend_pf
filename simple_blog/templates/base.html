@@ -1,93 +1,144 @@
 <!DOCTYPE html>
-<html lang="es">
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <title>{% block title %}Simple blog{% endblock %}</title>
-      {% load bootstrap4 %}
-      {% bootstrap_css %}
-      {% load static %}
-      <link rel="stylesheet" href="{% static 'css/blog-home.css' %}">
-   </head>
-   <body>
-      <!-- Navigation -->
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-         <div class="container">
-            <a class="navbar-brand" href="{% url 'posts:blog' %}">Simple Blog</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-               <ul class="navbar-nav ml-auto">
-                  <li class="nav-item active">
-                     <a class="nav-link" href="{% url 'posts:blog' %}">Blog
-                     <span class="sr-only">(current)</span>
-                     </a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="{% url 'about' %}">Sobre mi</a>
-                  </li>
-                  {% if user.is_authenticated %}
-                  <li class="nav-item dropdown">
-                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{request.user.username}}</a>
-                     <div class="dropdown-menu">
-                        {% if  user.is_staff %}
-                           <a class="dropdown-item" href="{% url 'admin:index' %}">Administración</a>
-                        {% endif %}
-                        <a class="dropdown-item" href="{% url 'users:logout' %}">Logout</a>
-                     </div>
-                  </li>
-                  {% else %}
-                  <li class="nav-item">
-                     <a class="nav-link" href="{% url 'users:login' %}">Login</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="{% url 'users:register' %}">Registro</a>
-                  </li>
-                  {% endif %}
-               </ul>
-            </div>
-         </div>
-      </nav>
-      <!-- Page Content -->
-      <div class="container">
-         {% block content %}{% endblock %}    
-         <!-- Sidebar Widgets Column -->
-         <div class="col-md-4">
-            <!-- Categories Widget -->
-            <div class="card my-4">
-               <h5 class="card-header">Categories</h5>
-               <div class="card-body">
-                  <div class="row">
-                     <div class="col-lg-12">
-                        <ul class="list-unstyled mb-0">
-                          {% for category in categories %}
-                          <li>
-                              <a href="#">{{category.name}}</a>
-                          </li>
-                          {% endfor %}
-                        </ul>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <!-- Side Widget -->
-            <div class="card my-4">
-               <h5 class="card-header">Side Widget</h5>
-               <div class="card-body">
-                  You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
-               </div>
-            </div>
-         </div>
+<html lang="es" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Fuente 'Lato' -->
+        <link rel="stylesheet" href="https://fonts.google.com/specimen/Lato?selection.family=Lato:wght@400;900">
+        <!-- Icono de la organizacion -->
+        <link rel="icon" href="../static/images/cropped-Logo-Curvas-01-tag.png" sizes="32x32"/>
+        <!-- Remix icons -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css">
+        {% load static %}
+        <!-- Custon Styles -->
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        <title> {% block title %}{% endblock title %}</title>
+    </head>
+    <body>
+      <!-- Header -->
+      <header class="header" id="header">
+
+          <nav class="navbar container">
+
+              <a href="{% url 'index' %}">
+                  <img src="../static/images/Logo-Curvas-hor-02-303x119.png" alt="">
+                  <h2 class="logo">Blog de noticias</h2>
+              </a>
+              <div class="menu" id="menu">
+                  <ul class="list">
+                      <li class="list-item">
+                          <a href="{% url 'index' %}" class="list-link current">Home</a>
+                      </li>
+                      <li class="list-item">
+                          <a href="{% url 'about' %}" class="list-link">Institucional</a>
+                      </li>
+                      <li class="list-item">
+                          <a href="{% url 'noticias' %}" class="list-link">Noticias</a>
+                      </li>
+                      <li class="list-item">
+                          <a href="#" class="list-link">Categorías</a>
+                      </li>
+                      <li class="list-item">
+                          <a href="#" class="list-link">Contacto</a>
+                      </li>
+                      <li class="list-item">
+                          <a href="#" class="list-link screen-lg-hidden">Acceder</a>
+                      </li>
+                      <li class="list-item screen-lg-hidden">
+                          <a href="#" class="list-link">Registrarse</a>
+                      </li>
+
+                  </ul>
+              </div>
+
+              <div class="list list-right">
+                  <button class="btn place-items-center" id="theme-toggle-btn">
+                      <i class="ri-sun-line sun-icon"></i>
+                      <i class="ri-moon-line moon-icon"></i>
+                  </button>
+
+                  <button class="btn place-items-center" id="search-icon-btn">
+                      <i class="ri-search-line"></i>
+                  </button>
+
+                  <button class="btn place-items-center screen-lg-hidden menu-toggle-icon" id="menu-toggle-icon">
+                      <i class="ri-menu-3-line open-menu-icon"></i>
+                      <i class="ri-close-line close-menu-icon"></i>
+                  </button>
+
+                  <a href="#" class="list-link screen-sm-hidden">Acceder</a>
+                  <a href="#" class="list-link screen-sm-hidden btn sign-up-btn fancy-border">
+                      <span>Registrarse</span>
+                  </a>
+              </div>
+          </nav>
+      </header>
+
+      <!-- Buscar -->
+      <div class="search-form-container container" id="search-form-container">
+
+          <div class="form-container-inner">
+
+              <form action="" class="form">
+                  <input type="text" class="form-input" placeholder="Buscar">
+                  <button class="btn form-btn" type="submit">
+                      <i class="ri-search-line"></i>
+                  </button>
+              </form>
+              <span class="form-note">Presiona ESC para cerrar.</span>
+          </div>
+
+          <button class="btn form-close-btn place-items-center" id="form-close-btn">
+              <i class="ri-close-line"></i>
+          </button>
       </div>
+        {% block content %}
+        
+        {% endblock content %}
       <!-- Footer -->
-      <footer class="py-5 bg-dark">
-         <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Simple Blog {% now "Y" %}</p>
-         </div>
-         <!-- /.container -->
-      </footer>
-      {% bootstrap_javascript jquery='full' %}
-   </body>
-</html>
+        <footer class="footer section">
+
+            <div class="footer-container container d-grid">
+
+                <div class="company-data">
+                    <a href="{% url 'about' %}">
+                        <h2 class="logo-footer">Instituto Barranqueras</h2>
+                    </a>
+                    <p class="company-description">
+                        Somos el primer instituto de nivel terciario de la localidad de Barranqueras.<br>
+                        Apostamos a la transformación comunitaria de nuestra localidad.</p>
+                    
+                    <ul class="list social-media">
+                        <h4>SEGUINOS EN NUESTRAS REDES</h4>
+                        <li class="list-item">
+                            <a href="https://www.instagram.com/institutobarranqueras/" class="list-link">
+                                <i class="ri-instagram-line"></i>
+                            </a>
+                            <a href="https://www.facebook.com/institutobarranqueras" class="list-link">
+                                <i class="ri-facebook-circle-line"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h6 class="title footer-title">Categorías</h6>
+
+                    <ul class="list footer-list">
+                        <li class="list-item">
+                            <a href="#" class="list-link">Ejemplo</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+
+
+<!-- Swiper.js Styles -->
+<script src="./assets/js/swiper-bundle.min.js"></script>
+<!-- Custom script Styles -->
+<script src=".\assets\js\main.js"></script>
+    </body>
+        <script src="{% static 'js/main.js' %}"></script>
+</html> 
+

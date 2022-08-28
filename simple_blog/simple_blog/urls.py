@@ -9,7 +9,17 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(('posts.urls', 'posts'), namespace='posts')),
     path(
-        route='sobre-mi',
+        route='noticias',
+        view=TemplateView.as_view(template_name='posts/index.html'),
+        name='noticias'
+    ),
+    path(
+        route='home',
+        view=TemplateView.as_view(template_name='index.html'),
+        name='index'
+    ),
+    path(
+        route='institucional',
         view=TemplateView.as_view(template_name='about.html'),
         name='about'
     ),
