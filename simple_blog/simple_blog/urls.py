@@ -10,11 +10,11 @@ urlpatterns = [
     path('', include(('posts.urls', 'posts'), namespace='posts')),
     path(
         route='noticias',
-        view=TemplateView.as_view(template_name='posts/index.html'),
+        view=TemplateView.as_view(template_name='posts/noticias.html'),
         name='noticias'
     ),
     path(
-        route='home',
+        route='',
         view=TemplateView.as_view(template_name='index.html'),
         name='index'
     ),
@@ -22,6 +22,11 @@ urlpatterns = [
         route='institucional',
         view=TemplateView.as_view(template_name='about.html'),
         name='about'
+    ),
+    path(
+        route='contacto',
+        view=TemplateView.as_view(template_name='about.html'),
+        name='contacto'
     ),
     path('', include(('users.urls', 'users'), namespace='users')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Noticias{% endblock title %}
+{% block content %}
+
+<!-- Older posts -->
+<section class="older-posts section">
+
+  <div class="container">
+    
+    <h2 class="title section-title" data-name="Noticias antiguas">Noticias</h2>
+    
+    <div class="older-posts-grid-wrapper d-grid">
+      
+      {% for post in posts %}
+                    
+                    <a href="{% url 'posts:detail' post.url %}" class="article d-grid">
+                        
+                        <div class="older-posts-article-image-wrapper">
+                            <img src="{{ post.image_header.url }}" alt="" class="article-image">
+                        </div>
+                        
+                        <div class="article-data-container" >
+                            
+                            <div class="article-data">
+                                
+                                <span class="article-date">{{post.created}}</span>
+                            </div>
+                            <h3 class="title article-title">{{post.title}}</h3>
+                            <p class="article-description">{{post.post|safe|truncatechars:100}}</p>
+                        </div>
+                    </a>
+                    {% endfor %}
+
+    </div>
+   
+     
+     
+      <ul class="pagination-container">
+        <li class="btn pagination-btn-left place-items-center">
+          <div class="i ri-arrow-left-s-line"></div><a class="page-link" href="#">Newer</a>
+        </li>
+        <li class="btn pagination-btn-right place-items-center disabled">
+          <a class="page-link" href="#">Older</a><div class="i ri-arrow-right-s-line"></div>
+        </li>
+      </ul>
+
+  </div>
+</section>
+
+      {% endblock content %}

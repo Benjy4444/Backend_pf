@@ -1,6 +1,68 @@
 {% extends "base.html" %}
+{% block title %}{{post.title}}{% endblock title %}
+
 {% block content %}
-  <div class="container">
+
+        <!-- Blog post -->
+        <section class="blog-post section-header-offset">
+
+            <div class="blog-post-container container">
+              
+              <div class="blog-post-data">
+                <h3 class="title blog-post-title">{{post.title}}</h3>
+                <div class="article-data">
+                  <span class="article-data-date">{{post.created}}</span>
+                </div>
+                <img src="{{ post.image_header.url }}" alt="">
+              </div>
+              
+              <div class="container">
+                
+                {{post.post|safe}}
+              
+              </div>
+            </div>
+           
+            {% if user.is_authenticated %}
+
+            <div class="card my-4">
+              <h5 class="card-header">Deja un comentario:</h5>
+              <div class="card-body">
+                <form method="POST" action="{% url "posts:save_comment" %}">
+                  {% csrf_token %}
+                  <input type="hidden" name="url" value="{{post.url}}" />
+                  <input type="hidden" name="post" value="{{post.id}}" />
+                  <div class="form-group">
+                    <textarea class="form-control" name="comment" rows="3"></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+              </div>
+            </div>
+            {% endif %}
+            
+            {% for comment in comments %}
+            <div class="media mb-4">
+
+              {% if comment.user.profile.photo %}
+              <img class="d-flex mr-3 rounded-circle" width="50px" height="50px" src="/media/{{ comment.user.profile.photo }}" alt="">
+              
+              {% else %}
+              
+              <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+              {% endif %}
+              
+              <div class="media-body">
+                
+                <h5 class="mt-0">{{comment.user.username}}</h5>
+                {{comment.comment}}
+              </div>
+            </div>
+            {% endfor %}
+          </section>
+
+
+  {% comment %} <div class="container">
     <div class="row">
       <div class="col-lg-8">
         <h1 class="mt-4">{{post.title}}</h1>
@@ -44,5 +106,5 @@
           </div>
         </div>
         {% endfor %}
-      </div>
+      </div> {% endcomment %}
 {% endblock %}

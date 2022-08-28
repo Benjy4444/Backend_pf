@@ -133,85 +133,30 @@
                 <h2 class="title section-title" data-name="Noticias antiguas">Noticias Antiguas</h2>
 
                 <div class="older-posts-grid-wrapper d-grid">
-
-                    <a href="#" class="article d-grid">
+                    
+                    {% for post in posts %}
+                    
+                    <a href="{% url 'posts:detail' post.url%}" class="article d-grid">
+                        
                         <div class="older-posts-article-image-wrapper">
-                            <img src="../static/images/older_posts/older_posts-1.jpg" alt="" class="article-image">
+                            <img src="{{ post.image_header.url }}" alt="" class="article-image">
                         </div>
-
-                        <div class="article-data-container">
-
+                        
+                        <div class="article-data-container" >
+                            
                             <div class="article-data">
-                                <span class="article-date">14 Ago 2022</span>
+                                
+                                <span class="article-date">{{post.created}}</span>
                             </div>
-                            <h3 class="title article-title">Esto es una noticia</h3>
-                            <p class="article-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis dolores tempore vitae itaque sunt quia nostrum minus iure ipsa ullam expedita culpa, dolorum earum aut impedit voluptatibus sit quaerat id.</p>
+                            <h3 class="title article-title">{{post.title}}</h3>
+                            <p class="article-description">{{post.post|safe|truncatechars:100}}</p>
                         </div>
                     </a>
-
-                    <a href="#" class="article d-grid">
-                        <div class="older-posts-article-image-wrapper">
-                            <img src="../static/images/older_posts/older_posts-2.jpg" alt="" class="article-image">
-                        </div>
-
-                        <div class="article-data-container">
-
-                            <div class="article-data">
-                                <span class="article-date">14 Ago 2022</span>
-                            </div>
-                            <h3 class="title article-title">Esto es una noticia</h3>
-                            <p class="article-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis dolores tempore vitae itaque sunt quia nostrum minus iure ipsa ullam expedita culpa, dolorum earum aut impedit voluptatibus sit quaerat id.</p>
-                        </div>
-                    </a>
-
-                    <a href="#" class="article d-grid">
-                        <div class="older-posts-article-image-wrapper">
-                            <img src="../static/images/older_posts/older_posts-3.jpg" alt="" class="article-image">
-                        </div>
-
-                        <div class="article-data-container">
-
-                            <div class="article-data">
-                                <span class="article-date">14 Ago 2022</span>
-                            </div>
-                            <h3 class="title article-title">Esto es una noticia</h3>
-                            <p class="article-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis dolores tempore vitae itaque sunt quia nostrum minus iure ipsa ullam expedita culpa, dolorum earum aut impedit voluptatibus sit quaerat id.</p>
-                        </div>
-                    </a>
-
-                    <a href="#" class="article d-grid">
-                        <div class="older-posts-article-image-wrapper">
-                            <img src="../static/images/older_posts/older_posts-4.jpg" alt="" class="article-image">
-                        </div>
-
-                        <div class="article-data-container">
-
-                            <div class="article-data">
-                                <span class="article-date">14 Ago 2022</span>
-                            </div>
-                            <h3 class="title article-title">Esto es una noticia</h3>
-                            <p class="article-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis dolores tempore vitae itaque sunt quia nostrum minus iure ipsa ullam expedita culpa, dolorum earum aut impedit voluptatibus sit quaerat id.</p>
-                        </div>
-                    </a>
-
-                    <a href="#" class="article d-grid">
-                        <div class="older-posts-article-image-wrapper">
-                            <img src="../static/images/older_posts/older_posts-5.jpg" alt="" class="article-image">
-                        </div>
-
-                        <div class="article-data-container">
-
-                            <div class="article-data">
-                                <span class="article-date">14 Ago 2022</span>
-                            </div>
-                            <h3 class="title article-title">Esto es una noticia</h3>
-                            <p class="article-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis dolores tempore vitae itaque sunt quia nostrum minus iure ipsa ullam expedita culpa, dolorum earum aut impedit voluptatibus sit quaerat id.</p>
-                        </div>
-                    </a>
+                    {% endfor %}
                 </div>
 
                 <div class="see-more-container">
-                    <a href="#" class="btn see-more-btn place-items-center">
+                    <a href="{% url 'noticias' %}" class="btn see-more-btn place-items-center">
                         Ver más <div class="i ri-arrow-right-s-line"></div>
                     </a>
                 </div>

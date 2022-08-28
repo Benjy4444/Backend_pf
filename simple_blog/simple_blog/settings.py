@@ -92,7 +92,7 @@ WSGI_APPLICATION = 'simple_blog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': env('POSTGRESQL_NAME'),
@@ -100,6 +100,13 @@ DATABASES = {
         'PASSWORD': env('POSTGRESQL_PASS'),
         'HOST': env('POSTGRESQL_HOST'),
         'PORT': env('POSTGRESQL_PORT'),
+    }
+}"""
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 

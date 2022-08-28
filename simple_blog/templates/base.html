@@ -26,27 +26,48 @@
               </a>
               <div class="menu" id="menu">
                   <ul class="list">
-                      <li class="list-item">
+                    <li class="list-item">
                           <a href="{% url 'index' %}" class="list-link current">Home</a>
-                      </li>
-                      <li class="list-item">
+                    </li>
+                    <li class="list-item">
                           <a href="{% url 'about' %}" class="list-link">Institucional</a>
-                      </li>
-                      <li class="list-item">
+                    </li>
+                    <li class="list-item">
                           <a href="{% url 'noticias' %}" class="list-link">Noticias</a>
-                      </li>
-                      <li class="list-item">
+                    </li>
+                    <li class="list-item">
                           <a href="#" class="list-link">Categorías</a>
-                      </li>
-                      <li class="list-item">
-                          <a href="#" class="list-link">Contacto</a>
-                      </li>
-                      <li class="list-item">
-                          <a href="#" class="list-link screen-lg-hidden">Acceder</a>
-                      </li>
-                      <li class="list-item screen-lg-hidden">
-                          <a href="#" class="list-link">Registrarse</a>
-                      </li>
+                    </li>
+                    <li class="list-item">
+                        <a href="{% url 'contacto' %}" class="list-link">Contacto</a>
+                    </li>
+                    {% comment %} <li class="list-item">
+                        <a href="{% url 'users:login' %}" class="list-link screen-lg-hidden">Acceder</a>
+                    </li>
+                    <li class="list-item screen-lg-hidden">
+                        <a href="{% url 'users:register' %}" class="list-link">Registrarse</a>
+                    </li> {% endcomment %}
+                    {% if user.is_authenticated %}
+                    <li class="list-item">
+                        <a class="list-link screen-lg-hidden" data-toggle="dropdown" href="#" role="button" >{{request.user.username}}</a>
+                        <div class="dropdown-menu">
+                        {% if  user.is_staff %}
+                        <a class="list-item screen-lg-hidden" href="{% url 'admin:index' %}">Administración</a>
+                        {% endif %}
+                        <a class="list-link screen-lg-hidden" href="{% url 'users:logout' %}">Salir</a>
+                        </div>
+                    </li>
+                    
+                    
+                    {% else %}
+                    <li class="list-item">
+                        <a class="list-link screen-lg-hidden" href="{% url 'users:login' %}">Acceder</a>
+                    </li>
+                    <li class="list-item screen-lg-hidden">
+                        <a class="list-link" href="{% url 'users:register' %}" >Registrarse</a>
+                    </li>
+                  {% endif %}
+                      
 
                   </ul>
               </div>
@@ -66,10 +87,25 @@
                       <i class="ri-close-line close-menu-icon"></i>
                   </button>
 
-                  <a href="#" class="list-link screen-sm-hidden">Acceder</a>
-                  <a href="#" class="list-link screen-sm-hidden btn sign-up-btn fancy-border">
+                
+                  {% if user.is_authenticated %}
+                    <li class="list-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button">{{request.user.username}}</a>
+                        <div class="dropdown-menu">
+                        {% if  user.is_staff %}
+                        <a class="list-link" href="{% url 'admin:index' %}">Administración</a>
+                        {% endif %}
+                        <a class="list-link" href="{% url 'users:logout' %}">Salir</a>
+                        </div>
+                    </li>
+                    
+                    
+                    {% else %}
+                    <a href="{% url 'users:login' %}" class="list-link screen-sm-hidden">Acceder</a>
+                  <a href="{% url 'users:register' %}" class="list-link screen-sm-hidden btn sign-up-btn fancy-border">
                       <span>Registrarse</span>
                   </a>
+                  {% endif %}
               </div>
           </nav>
       </header>
@@ -80,6 +116,8 @@
           <div class="form-container-inner">
 
               <form action="" class="form">
+                <script async src="https://cse.google.com/cse?cx=8118cc08d49854744">
+                </script>
                   <input type="text" class="form-input" placeholder="Buscar">
                   <button class="btn form-btn" type="submit">
                       <i class="ri-search-line"></i>
@@ -92,6 +130,7 @@
               <i class="ri-close-line"></i>
           </button>
       </div>
+      
         {% block content %}
         
         {% endblock content %}
