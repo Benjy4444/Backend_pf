@@ -4,7 +4,7 @@
 
 <!-- Older posts -->
 <section class="older-posts section">
-
+  
   <div class="container">
     
     <h2 class="title section-title" data-name="Noticias antiguas">Noticias</h2>
@@ -13,23 +13,25 @@
       
       {% for post in posts %}
                     
-                    <a href="{% url 'posts:detail' post.url %}" class="article d-grid">
+                  <a href="{% url 'posts:detail' post.url %}" class="article d-grid">
+                    
+                    <div class="older-posts-article-image-wrapper">
+                      <img src="{{ post.image_header.url }}" alt="" class="article-image">
+                    </div>
+                    
+                    <div class="article-data-container" >
+                      
+                      <div class="article-data">
                         
-                        <div class="older-posts-article-image-wrapper">
-                            <img src="{{ post.image_header.url }}" alt="" class="article-image">
-                        </div>
-                        
-                        <div class="article-data-container" >
-                            
-                            <div class="article-data">
-                                
-                                <span class="article-date">{{post.created}}</span>
-                            </div>
-                            <h3 class="title article-title">{{post.title}}</h3>
-                            <p class="article-description">{{post.post|safe|truncatechars:100}}</p>
-                        </div>
-                    </a>
-                    {% endfor %}
+                        <span class="article-date">{{post.created}}</span>
+                      
+                      </div>
+                      
+                      <h3 class="title article-title">{{post.title}}</h3>
+                      <p class="article-description">{{post.post|safe|truncatechars:100}}</p>
+                    </div>
+                  </a>
+      {% endfor %}
 
     </div>
    

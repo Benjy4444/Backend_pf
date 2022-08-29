@@ -27,16 +27,16 @@
               <div class="menu" id="menu">
                   <ul class="list">
                     <li class="list-item">
-                          <a href="{% url 'index' %}" class="list-link current">Home</a>
+                          <a href="{% url 'posts:index' %}" class="list-link current">Home</a>
                     </li>
                     <li class="list-item">
                           <a href="{% url 'about' %}" class="list-link">Institucional</a>
                     </li>
                     <li class="list-item">
-                          <a href="{% url 'noticias' %}" class="list-link">Noticias</a>
+                          <a href="{% url 'posts:noticias' %}" class="list-link">Noticias</a>
                     </li>
                     <li class="list-item">
-                          <a href="#" class="list-link">Categorías</a>
+                          <a href="{% url 'categorias' %}" class="list-link">Categorías</a>
                     </li>
                     <li class="list-item">
                         <a href="{% url 'contacto' %}" class="list-link">Contacto</a>
@@ -115,10 +115,10 @@
 
           <div class="form-container-inner">
 
-              <form action="" class="form">
+              <form action="{% url 'search' %}" method="GET" role="form" class="form">
                 <script async src="https://cse.google.com/cse?cx=8118cc08d49854744">
                 </script>
-                  <input type="text" class="form-input" placeholder="Buscar">
+                  <input type="text" name="search" class="form-input" placeholder="Buscar">
                   <button class="btn form-btn" type="submit">
                       <i class="ri-search-line"></i>
                   </button>
@@ -157,6 +157,11 @@
                                 <i class="ri-facebook-circle-line"></i>
                             </a>
                         </li>
+                        <h4 class="list social-media">ENCONTRANOS</h4>
+                        <ul class="list footer-list">
+                            <li class="list-item">
+                                <a href="https://goo.gl/maps/Ly9HPmB5wYVwkKW99" class="list-link">Diagonal Eva Perón 425 – Barranqueras</a>
+                            </li>
                     </ul>
                 </div>
 

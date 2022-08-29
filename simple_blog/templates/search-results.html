@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Sobre Nosotros{% endblock title %}
+{% block content %}
+
+        <!-- Blog company data -->
+        <section class="blog-post section-header-offset">
+
+            <div class="blog-post-container container">
+
+                <div class="container">
+                        
+                    <ul>
+                        {% for element in results %}
+                            <li>{{ element }}</li>
+                        {% endfor %}
+                        </ul>
+                
+                </div>
+            </div>
+        </section>
+
+{% endblock content %}
+
+
+

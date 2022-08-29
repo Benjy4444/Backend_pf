@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from posts.models import Post
 from categories.models import Category
 from comments.models import Comment
+from django.db.models import Q 
 
 # Forms
 from comments.forms import CreateCommentForm
@@ -66,3 +67,20 @@ def save_comment(request):
     else:
         return HttpResponse(status=405)
     return HttpResponse(status=500)
+
+
+def searchBlog(request): 
+    context = {} 
+    posts = Post.objects.all() 
+    if request.method == "GET": 
+        query = request.GET.get("search") 
+        queryset = posts.filter(Q(title__icontains=query))
+        total = queryset.count() 
+        context.update({ 
+            "total":total, 
+            "query":query, 
+            "posts":queryset, 
+ 
+        }) 
+ 
+        return render(request, "search-results.html", context) 
